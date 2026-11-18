@@ -14,7 +14,8 @@
 #'       \item{fg}{Functional Group}
 #'       \item{variable}{Variable Name (bmass-biomass in tonnes, abund-abundance in 1000s, sca.bmass-scaled biomass in campelan units, ba-ratio of sca.bmass/abund)}
 #'       \item{value}{Index}
-#'       \item{sd.value}{Standard deviation}
+#'       \item{ci2.5}{Lower 2.5% confidence interval assuming gamma distribution}
+#'       \item{ci97.5}{Upper 97.5% confidence interval assuming gamma distribution}
 #' }
 #' @name FG_bmass.abund.ba
 #' @docType data

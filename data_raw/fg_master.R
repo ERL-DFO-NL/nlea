@@ -1,33 +1,25 @@
 # FG biomass, abundance, ba with 95CI Run code line-by-line and check plots.
-#  See ?FG_master for details.
-library(tidyverse)
+#  See ?FG_bmass.abund.ba for details.
+library(dplyr)
 
-FG_master <- readr::read_csv("~/NLEA/nlea/data_raw/fg_master.csv")
+FG_master <- readr::read_csv("~/NLEA/nlea/data_raw/fg_output_CI.csv")
 
 # Make long
-vars <- c("bmass", "abund", "sca.bmass", "ba")
+vars    <- c("bmass", "abund", "sca.bmass","ba")
+ci_cols <- as.vector(outer(vars, c("ci2.5", "ci97.5"), paste, sep = "."))
 
-dat <- FG_master |>
-  mutate(.row = row_number())   # guards against duplicate gear/yr/fg combos
+# add any CI columns that don't exist yet as NA
+dat <- FG_master
+dat[setdiff(ci_cols, names(dat))] <- NA_real_
 
-vals <- dat |>
-  select(.row, gear, yr, fg, name, all_of(vars)) |>
-  pivot_longer(all_of(vars),
-               names_to  = "variable",
-               values_to = "value")
-
-errs <- dat |>
-  select(.row, all_of(paste0(vars, ".sd"))) |>
-  pivot_longer(-.row,
-               names_to  = "error",
-               values_to = "sd.value") |>
-  mutate(variable = sub("\\.sd$", "", error))
-
-FG_long <- vals |>
-  left_join(errs, by = c(".row", "variable")) |>
-  transmute(series = name,
-            gear, yr, fg, variable, value,  sd.value)
-
+FG_long <- dat |>
+  select(gear, yr, fg, all_of(vars), all_of(ci_cols)) |>
+  rename_with(~ paste0(.x, ".value"), all_of(vars)) |>
+  pivot_longer(
+    cols          = -c(gear, yr, fg),
+    names_to      = c("variable", ".value"),
+    names_pattern = "^(.*)\\.(value|ci2\\.5|ci97\\.5)$"
+  )
 
 # class(hake_recruitment_new) <- c("pacea_recruitment",
 #                                  class(hake_recruitment_new))
