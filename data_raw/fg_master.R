@@ -13,13 +13,14 @@ dat <- FG_master
 dat[setdiff(ci_cols, names(dat))] <- NA_real_
 
 FG_long <- dat |>
-  select(gear, yr, fg, all_of(vars), all_of(ci_cols)) |>
+  select(name, gear, yr, fg, all_of(vars), all_of(ci_cols)) |>
   rename_with(~ paste0(.x, ".value"), all_of(vars)) |>
   pivot_longer(
-    cols          = -c(gear, yr, fg),
+    cols          = -c(name, gear, yr, fg),
     names_to      = c("variable", ".value"),
     names_pattern = "^(.*)\\.(value|ci2\\.5|ci97\\.5)$"
-  )
+  ) |>
+  rename(series = name)
 
 # class(hake_recruitment_new) <- c("pacea_recruitment",
 #                                  class(hake_recruitment_new))
