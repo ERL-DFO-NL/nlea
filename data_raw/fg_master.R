@@ -32,10 +32,10 @@ FG_long <- vals |>
 # class(hake_recruitment_new) <- c("pacea_recruitment",
 #                                  class(hake_recruitment_new))
 
-FG_bmass.abund.ba
+FG_bmass.abund.ba <- FG_long
 
 attr(FG_bmass.abund.ba, "axis_name") <-
   "RV index"
 
-usethis::use_data(FG_long,
+usethis::use_data(FG_bmass.abund.ba,
                     overwrite = TRUE)
