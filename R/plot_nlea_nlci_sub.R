@@ -1,170 +1,71 @@
-##' Plot multiple indices, that have been created by the user, together in a similar heatmap style to the buoy SST plot.
+##' Plot NLCI sub-indices together in a heatmap style plot.
 ##'
-##' Takes any number standardised annual indices created using [create_index()] and
-##' plots a heatmap style plot. To display square tiles for each data point,
-##' manually adjust your figure
-##' dimensions when saving.
+##' Takes the nlci_sub tibble containing standardised annual sub-indices for the
+##' Newfoundland and Labrador Composite Index and plots a heatmap style plot.
+##' To display square tiles for each data point, manually adjust your figure
+##' dimensions when saving. Adapted from pacea::plot_indices().
 ##'
-##' See the `ecosystem_summary_heatmaps` vignette (best viewed as the rendered
-##' version on GitHub) for lots of example uses.
-##'
-##' @param ... the indices you want to plot, using names you gave them when
-##'   using [create_index()], e.g. hake_recruitment_index, etc. They are plotted
-##'   from top to bottom in the order given. When the arguments `flip` and
-##'   `shift` are used, it is assumed that the first index given is the one of
-##'   interest, that may be influenced by the other indices.
+##' @param dat tibble of class `nlea_nlci_sub` containing columns `year`, `variable`,
+##'   and `value`. Typically the built-in `nlci_sub` dataset.
 ##' @param years numeric vector of the years to show, default is the range that
 ##'   encompasses all the indices. If some years of an index are not plotted (but
 ##'   were used to create the standardised index), then the mean of the values
 ##'   shown in the plot for that index will obviously not be 0.
-##' @param xlab x-axis label, default is "Year". If `shift` is specified then
-##'   automatically becomes "Year of " followed by the `index_label` of the index
-##'   specified in `shift[1]`, as it is assumed this is the focus of interest
-##'   (e.g. recruitment of a fish stock).
+##' @param xlab x-axis label, default is "Year".
+##' @param ylab y-axis label, default is "Index".
+##' @param main title of the plot. Default describes it as an ecosystem summary plot.
+##' @param return_results logical; if TRUE returns a list with plot and results
+##'   tibble, otherwise returns just the plot.
+##' @param scale_limits numeric vector of length 2 specifying the colour scale limits.
+##'   Default uses the maximum absolute value in the data.
 ##' @param angle_year_labels logical, whether to put the year labels at 45
-##'   degrees, which is needed to avoid overlapping when there are many
-##'   years. TODO maybe need the next rdname:
-##' @param gap_after character vector (or NULL, the default) of index names
+##'   degrees, which is needed to avoid overlapping when there are many years.
+##' @param gap_after character vector (or NULL, the default) of variable names
 ##'   to add a gap after in the plot. For example,
-##'   `gap_after = "herring_recruitment_sog_index"` (which is an index you have
-##'   created and named using `create_index()`) will add a gap after that index.
-##'   Multiple indices can be specified: `gap_after = c("index1", "index2")`.
+##'   `gap_after = "air_temp"` will add a gap after the air_temp variable.
+##'   Multiple variables can be specified: `gap_after = c("var1", "var2")`.
 ##' @param gap_size numeric value controlling the size of the gaps in cm
 ##'   (default 0.2, roughly 1/5 of the box height).
 ##' @param heatmap_colours numeric vector of colours to use for the heatmap.
 ##'   Default is `pals::ocean.balance(20)[2:19]`, which provides 18 colours.
-##' @param flip character vector (or NULL, the default) of index names. This is
-##'   for a stock-specific summary, when the first index represents, say,
-##'   recruitment of the stock of interest. The remaining indices are thought to
-##'   possibly influence this recruitment. Indices in `flip` are for when a
-##'   negative value of the index is thought to have a positive values on the
-##'   recruitment. The colours in the heatmap are then reversed for this index,
-##'   so that red is 'good for recruitment'. An asterisk is added to the index
-##'   label in the figure to identify this. The numeric values shown in the
-##'   figure are those of the original index. See the vignette for an
-##'   example. Note that if `return_results = TRUE` then results are given in
-##'   this way, with the `value` column being the negative of the original index
-##'   for those indices given in `flip`.
-##' @param shift character vector (or NULL, the default) of index names to
-##'   shift along the year axis by the respective value in `shift_years`. Each
-##'   index name must be one of those provided in `...`. The idea is that if an
-##'   `index_1` is influenced by the value of `index_2` from the previous year,
-##'   then we shift `index_2` along by a year so that in the figure the years
-##'   line up, making it easy to spot relationships. A plus symbol as added to
-##'   the index label to identify this (one plus symbol is added for each year
-##'   in the relevant component of `shift_years`). If not NULL, then The
-##'   x-axis label is also automatically changed to say `Year of <index_label for
-##'   index_x_>`. See the vignette for an example.
-##' @param shift_years numeric vector (or NULL, the default) of the same length
-##'   as `shift`, specifying the number of years to shift each index in `shift`.
-##'   Positive values shift the index forward in time (e.g. a value of 1 means
-##'   the value for 1990 will now appear as 1991). If NULL but `shift` is given,
-##'   then `shift_years` defaults to `rep(1, length(shift)`, assuming a one-year
-##'   shift for each specified index.
+##' @param flip character vector (or NULL, the default) of variable names for which
+##'   to reverse the colour scale. When a negative value of a variable is thought
+##'   to have a positive effect, the colours are reversed so that red is 'good'.
+##'   An asterisk is added to the variable label in the figure to identify this.
+##'   The numeric values shown in the figure are those of the original variable.
 ##' @param text_size numeric; size of text displayed in heatmap boxes (default: 3.5)
 ##' @param digits numeric number of decimal places to show for text values
 ##' @return a ggplot object (when `return_results = FALSE`) or a list with `plot` and `results`
 ##' (when `return_results = TRUE`)
 ##' @export
-##' @author Andrew Edwards and Andrea Hilborn
+##' @author Andrew Edwards, Andrea Hilborn, Hannah Munro, and Chelsey Malayny
 ##' @examples
 ##' \dontrun{
-##' # See the vignette for explanations and use of the options.
-##' hake_recruitment_index <- create_index(hake_recruitment)
-##' herring_wcvi_recruitment_index <- create_index(herring_recruitment)   # default is WCVI
-##' plot_indices(hake_recruitment_index,
-##'              herring_wcvi_recruitment_index)
-##' # hake_rec_over_2010_index <- create_index(hake_recruitment_over_2010,
-##' # index_label = "Rec over 2010")   # Just to get it working, values should be
-##' # close TODO think about why 2021 values don't match, others seem to
-##'
-##'
+##' plot_nlea_nlci_sub(nlci_sub)
+##' plot_nlea_nlci_sub(nlci_sub,
+##'                    flip = c("wint_nao", "air_temp"))
 ##' }
 plot.nlea_nlci_sub <- function(dat,
-                          years = NULL,
-                          main = NULL,
-                          xlab = "Year",
-                          ylab = "Index",
-                          return_results = FALSE,
-                          scale_limits = NULL,
-                         angle_year_labels = TRUE,
-                         gap_after = NULL,
-                         gap_size = 0.2,
-                         heatmap_colours = pals::ocean.balance(20)[2:19],
-                         flip = NULL,
-                         shift = NULL,
-                         shift_years = NULL,
-                         text_size = 3.5,
-                         digits = 1){
+                               years = NULL,
+                               main = NULL,
+                               xlab = "Year",
+                               ylab = "Index",
+                               return_results = FALSE,
+                               scale_limits = NULL,
+                               angle_year_labels = TRUE,
+                               gap_after = NULL,
+                               gap_size = 0.2,
+                               heatmap_colours = pals::ocean.balance(20)[2:19],
+                               flip = NULL,
+                               text_size = 3.5,
+                               digits = 1){
 
-  # Make a long tibble from the indices in ..., in a similar way to what we did
-  # for buoy_sst data, so plotting can be similar.
-  index_list <- list(...)
-  names(index_list) <- sapply(substitute(list(...))[-1],
-                              deparse)
-
-  # Validate that all arguments are of class pacea_standardised_index
-  invalid_i <- which(!sapply(index_list,
-                             inherits,
-                             "pacea_standardised_index"))
-  if(length(invalid_i) > 0){
-    invalid_names <- names(index_list)[invalid_i]
-    stop("Argument(s) ",
-         paste0(invalid_names,
-                collapse = ", "),
-         " must be of class 'pacea_standardised_index'")
-  }
-
-  combined_indices <- index_list %>%
-    dplyr::bind_rows(.id = "index") %>%
-    dplyr::mutate(index = factor(index,
-                                 levels = names(index_list)))
-
-  # Get unique index_labels in the order of the index factor levels
-  index_label_levels <- combined_indices %>%
-    dplyr::distinct(index,
-                    index_label) %>%
-    dplyr::arrange(index) %>%
-    dplyr::pull(index_label)
-
-  combined_indices <- combined_indices %>%
-    dplyr::mutate(index_label = factor(index_label,
-                                       levels = index_label_levels))
-
-  # Shift years for specified indices
-  if(!is.null(shift)){
-    if(is.null(shift_years)){;
-      shift_years <- rep(1,
-                         length(shift))
-    }
-
-    if(length(shift) != length(shift_years)){
-      stop("shift and shift_years must be the same length")
-    }
-
-    if(!all(shift %in% names(index_list))){
-      stop("All values in shift must be index names from those provided to plot_indices()")
-    }
-
-    shift_tibble <- tibble::tibble(index = shift,
-                                   shift_years = shift_years)
-
-    combined_indices <- combined_indices %>%
-      dplyr::left_join(shift_tibble,
-                       by = "index") %>%
-      dplyr::mutate(year = dplyr::if_else(!is.na(shift_years),
-                                          year + shift_years,
-                                          year))
-
-    # Change xlab if user hasn't specified something different from the default
-    if(xlab == "Year"){
-      xlab = paste0("Year of ",
-                    pull(combined_indices[1, "index_label"]))
-    }
-  }
+  # Prepare data: dat already contains year, variable, value columns
+  combined_indices <- dat %>%
+    dplyr::mutate(variable = factor(variable))
 
   if(is.null(main)){
-    main = paste0("Ecosystem summary plot showing standardised value of each index")
+    main = paste0("NLCI subindices")
   }
 
   if(is.null(years)){
@@ -179,7 +80,7 @@ plot.nlea_nlci_sub <- function(dat,
                   !is.na(value))
 
   # Create legend label
-  legend_label <- "Standardised anomaly for each index"
+  legend_label <- "Standardised anomaly for each variable"
 
   if(is.null(scale_limits)){
     max_abs <- max(abs(plot_data$value),
@@ -193,64 +94,50 @@ plot.nlea_nlci_sub <- function(dat,
     dplyr::mutate(label = format(round(value, digits),
                                  nsmall = digits))
 
-  # Flip sign of values (so red is 'good for species of interest' but the shown
-  #  'label' number is still the value of the orginal index)
-  #  and add asterisk for 'flipped' indices
+  # Flip sign of values (so red is 'good' but the shown 'label' number is still
+  # the value of the original variable) and add asterisk for 'flipped' variables
   if(!is.null(flip)){
-    if(!all(flip %in% combined_indices$index)){
-      stop("flip needs to contain only index names from those provided to plot_indices()")
+    if(!all(flip %in% combined_indices$variable)){
+      stop("flip needs to contain only variable names from the data")
     }
 
     plot_data <- plot_data %>%
-      dplyr::mutate(value = dplyr::if_else(index %in% flip,
+      dplyr::mutate(value = dplyr::if_else(variable %in% flip,
                                            -value,
                                            value),
-                    index_label = dplyr::if_else(index %in% flip,
-                                                 paste0(index_label, "*"),
-                                                 index_label))
+                    variable = dplyr::if_else(variable %in% flip,
+                                              paste0(variable, "*"),
+                                              variable))
   }
 
-  # Add superscript + for shifted indices
-  if(!is.null(shift)){
-    plot_data <- plot_data %>%
-      dplyr::mutate(shift_symbols = dplyr::if_else(!is.na(shift_years),
-                                                   strrep("+", shift_years),
-                                                   ""),
-                    index_label = paste0(index_label,
-                                         shift_symbols)) %>%
-      dplyr::select(-shift_years,
-                    -shift_symbols)
-  }
-
-  # Recreate index_label factor levels to preserve order after adding symbols
-  if(!is.null(flip) || !is.null(shift)){
+  # Recreate variable factor levels to preserve order after adding flip symbols
+  if(!is.null(flip)){
     new_levels <- plot_data %>%
-      dplyr::distinct(index, index_label) %>%
-      dplyr::mutate(index = forcats::fct_inorder(index)) %>%
-      dplyr::arrange(index) %>%
-      dplyr::pull(index_label)
+      dplyr::distinct(variable) %>%
+      dplyr::arrange(variable) %>%
+      dplyr::pull(variable)
 
     plot_data <- plot_data %>%
-      dplyr::mutate(index_label = factor(index_label,
-                                         levels = new_levels))
+      dplyr::mutate(variable = factor(variable,
+                                      levels = new_levels))
   }
 
   # Create grouping for gaps if gap_after is specified
   if(!is.null(gap_after)){
-    if(!all(gap_after %in% combined_indices$index)){
-      stop("gap_after needs to be one of your prescribed indices in plot_indices()")
+    if(!all(gap_after %in% combined_indices$variable)){
+      stop("gap_after needs to be one of your variables")
     }
-    # Get unique indices with their labels and assign gap groups
-    index_groups <- plot_data %>%
-      dplyr::distinct(index, index_label) %>%
+    # Get unique variables and assign gap groups
+    var_groups <- plot_data %>%
+      dplyr::distinct(variable) %>%
       dplyr::mutate(
-        gap_group = 1 + cumsum(dplyr::lag(index %in% gap_after,
+        gap_group = 1 + cumsum(dplyr::lag(variable %in% gap_after,
                                           default = FALSE))
       )
 
     plot_data_with_groups <- plot_data %>%
-      dplyr::left_join(index_groups,
-                       by = c("index", "index_label"))
+      dplyr::left_join(var_groups,
+                       by = "variable")
   } else {
     plot_data_with_groups <- plot_data %>%
       dplyr::mutate(gap_group = 1)
@@ -263,10 +150,10 @@ plot.nlea_nlci_sub <- function(dat,
 
   indices_plot <-
     plot_data_with_groups %>%
-    ggplot(aes(x = year,
-               y = index_label)) +
-    geom_tile(aes(fill = value),
-              colour = "black") +
+    ggplot2::ggplot(ggplot2::aes(x = year,
+                                  y = variable)) +
+    ggplot2::geom_tile(ggplot2::aes(fill = value),
+                       colour = "black") +
     color_scale +
     ggplot2::scale_x_continuous(expand = c(0, 0),
                                 name = xlab,
@@ -283,39 +170,39 @@ plot.nlea_nlci_sub <- function(dat,
         NULL
       }
     } +
-    theme(legend.position = "bottom",
-          strip.background = element_blank(),
-          strip.text = element_text(face = "bold",
-                                    size = 12),
-          strip.text.y = element_blank(),
-          panel.spacing.y = grid::unit(if(!is.null(gap_after)) gap_size else 0.1,
-                                       if(!is.null(gap_after)) "cm" else "lines"),
-          panel.background = element_rect(fill = "white",
-                                          colour = NA),
-          panel.grid = element_blank()) +
+    ggplot2::theme(legend.position = "bottom",
+                   strip.background = ggplot2::element_blank(),
+                   strip.text = ggplot2::element_text(face = "bold",
+                                                      size = 12),
+                   strip.text.y = ggplot2::element_blank(),
+                   panel.spacing.y = grid::unit(if(!is.null(gap_after)) gap_size else 0.1,
+                                                if(!is.null(gap_after)) "cm" else "lines"),
+                   panel.background = ggplot2::element_rect(fill = "white",
+                                                            colour = NA),
+                   panel.grid = ggplot2::element_blank()) +
     {
-      if(!is.null(shift) || !is.null(flip)){
-        theme(axis.ticks.y = element_blank())
+      if(!is.null(flip)){
+        ggplot2::theme(axis.ticks.y = ggplot2::element_blank())
       } else {
-        theme()
+        ggplot2::theme()
       }
     } +
     {
       if(angle_year_labels){
-        theme(axis.text.x = element_text(angle = 45,
-                                         hjust = 1,
-                                         vjust = 1))
+        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45,
+                                                           hjust = 1,
+                                                           vjust = 1))
       } else {
-        theme()
+        ggplot2::theme()
       }
     } +
-    ggplot2::geom_text(aes(label = label),
+    ggplot2::geom_text(ggplot2::aes(label = label),
                        size = text_size) +
-    guides(fill = guide_colorbar(barwidth = 15,
-                                 title.position = "top",
-                                 frame.colour = "black",
-                                 ticks.colour = "black")) +
-    labs(title = main)
+    ggplot2::guides(fill = ggplot2::guide_colorbar(barwidth = 15,
+                                                    title.position = "top",
+                                                    frame.colour = "black",
+                                                    ticks.colour = "black")) +
+    ggplot2::labs(title = main)
          # caption = "Ooh look at me")
 
   if(return_results){
