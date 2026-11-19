@@ -8,6 +8,9 @@
 <!-- badges: end -->
 
 
-This is the data package of ecosystem data for the NL region.
+#### This is an experimental R package currently in development!
 
-We are working on this package
+The goal is to:
+- place all of the data used for ecosystem summaries and related indices
+- create plotting functions for quick visualizations of data
+- create plotting functions for use in ecosystem summaries
