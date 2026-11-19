@@ -73,10 +73,38 @@ plot_biomass_faceted <- function(
     dplyr::arrange(year, series, fg)
   
   # Conditionally filter for Campelen only
+  # Note: Total Biomass has NA gear, so we need to allow that
   if(campelen_only){
     dat.facet <- dat.facet%>%
-      dplyr::filter(gear == "Campelen", year >= min_year)
+      dplyr::filter((gear == "Campelen" | is.na(gear)), year >= min_year)
   }
+  
+  # Calculate Finfish as sum of all non-Shellfish, non-Total Biomass groups
+  dat.fin <- dat.facet%>%
+    dplyr::filter(!(fg %in% c("Shellfish", "Total Biomass")))%>%
+    dplyr::group_by(series, year)%>%
+    dplyr::summarise(
+      value = {
+        vals <- value
+        if(all(is.na(vals))) NA_real_ else sum(vals, na.rm = TRUE)
+      },
+      low = {
+        vals <- low
+        if(all(is.na(vals))) NA_real_ else sum(vals, na.rm = TRUE)
+      },
+      high = {
+        vals <- high
+        if(all(is.na(vals))) NA_real_ else sum(vals, na.rm = TRUE)
+      },
+      .groups = "drop"
+    )%>%
+    dplyr::mutate(
+      fg = factor("Finfish", levels = names(colours)),
+      gear = NA_character_
+    )
+  
+  # Combine with original data
+  dat.facet <- dplyr::bind_rows(dat.facet, dat.fin)
 
   # Assign each fg to its own facet group
   dat.base <- dat.facet%>%
