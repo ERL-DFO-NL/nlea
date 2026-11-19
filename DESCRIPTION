@@ -1,9 +1,17 @@
 Package: nlea
-Title: What the Package Does (One Line, Title Case)
+Type: Package
+Title: Newfoundland and Labrador Ecosystem Information for Ecosystem Approach to Fisheries Management
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Hannah", "Munro", , "hannah.munro@dfo-mpo.gc.ca", role = c("aut", "cre")),
+    person("Chelsea", "Malayny", , "chelsea.malayny@dfo-mpo.gc.ca", role = c("aut")),
+    person("Kathleen", "Ryan", , "kathleen.ryan@dfo-mpo.gc.ca", role = c("aut")),
+    person("Mariano", "Koen-Alonso", , "mariano.koen-alonso@dfo-mpo.gc.ca", role = c("aut"))
+Description: Provides access to Newfoundland and Labrador ecosystem data from 
+    Atlantic Canada. Includes oceanographic indices, species abundance data, 
+    and environmental time series. The package wrangles data into standardized 
+    formats and provides visualization functions to support ecosystem approach 
+    to fisheries management.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
