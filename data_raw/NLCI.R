@@ -3,7 +3,8 @@
 #  See ?NLCI for details.
 
 library(dplyr)
-library(tidyverse)
+library(tidyr)
+library(stringr)
 
 # From Fred Cyr and Peter Galbraith.
 # data-raw file created by Hannah Munro
@@ -41,7 +42,14 @@ NLCI_sub <- NLCI_data_all|>
                 variable = variable %>%
                   str_replace_all("[. _]+", "_") %>%
                   str_remove_all("^_|_$") |>  # Optional: removes leading or trailing underscores
-                  str_to_lower())
+                  str_to_lower(),
+                variable = factor(
+                  variable,
+                  levels = c("wint_nao","air_temp","sea_ice",
+                             "icebergs","sst","s27_t",
+                             "s27_s","s27_cil","bottom_t",
+                             "cil_area")
+                ))
 
 nlci <- NLCI
 nlci_sub <- NLCI_sub
