@@ -1,4 +1,4 @@
-#' Functional Group Indexes (FG_bmass.abund.ba)
+#' Functional Group Indexes (fg_biomass, fg_abundance, fg_scaled_biomass, fg_biomass_abundance_ratio)
 #'
 #' Indexes of biomass, abundance, and biomass ratio at the functional group level.
 #'
@@ -17,12 +17,20 @@
 #'       \item{ci2.5}{Lower 2.5% confidence interval assuming gamma distribution}
 #'       \item{ci97.5}{Upper 97.5% confidence interval assuming gamma distribution}
 #' }
-#' @name FG_bmass.abund.ba
 #' @docType data
 #' @author Hannah Munro
 #' @source Generated in data_raw/fg_master.R
 #' @references Add this once published
-"FG_bmass.abund.ba"
+"fg_biomass"
+
+##' @rdname fg_biomass
+"fg_abundance"
+
+##' @rdname fg_biomass
+"fg_scaled_biomass"
+
+##' @rdname fg_biomass
+"fg_biomass_abundance_ratio"
 
 #' Newfoundland and Labrador Climate Index (ea_data)
 #'

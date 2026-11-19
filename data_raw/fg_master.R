@@ -1,5 +1,5 @@
 # FG biomass, abundance, ba with 95CI Run code line-by-line and check plots.
-#  See ?FG_bmass.abund.ba for details.
+#  See ?fg_master for details.
 library(dplyr)
 
 FG_master <- readr::read_csv(paste0(here::here(),
