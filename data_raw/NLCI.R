@@ -3,6 +3,7 @@
 #  See ?NLCI for details.
 
 library(dplyr)
+library(tidyverse)
 
 # From Fred Cyr and Peter Galbraith.
 # data-raw file created by Hannah Munro
@@ -23,20 +24,28 @@ NLCI_data_raw <-
 NLCI_data_all <-
   readr::read_csv("data_raw/NL_climate_index_all_fields_natural_signs.csv") #df with 11 variables
 
+#all to lower case
 
 NLCI <- NLCI_data_raw |>
   transmute(year = Year,
         variable ="nlci",
         value = `Climate index`
-         ) |>
-  bind_rows(
-    NLCI_data_all |>
+         )
+
+NLCI_sub <- NLCI_data_all|>
       pivot_longer(cols = (-Year),
                    values_to = "value",
                    names_to = "variable") |>
-      rename(year = Year)
-  )
+      transmute(year = Year,
+                value,
+                variable = variable %>%
+                  str_replace_all("[. _]+", "_") %>%
+                  str_remove_all("^_|_$") |>  # Optional: removes leading or trailing underscores
+                  str_to_lower())
 
 nlci <- NLCI
+nlci_sub <- NLCI_sub
 usethis::use_data(nlci,
+                  overwrite = TRUE)
+usethis::use_data(nlci_sub,
                   overwrite = TRUE)
