@@ -31,19 +31,31 @@ FG_long <- dat |>
 
 fg_biomass <- filter(FG_long,
                      variable == "bmass") %>%
-  select(-"variable")
+  select(-"variable") %>%
+  mutate(series = factor(series),
+         gear = factor(gear),
+         fg = factor(fg))
 
 fg_abundance <- filter(FG_long,
                        variable == "abund") %>%
-  select(-"variable")
+  select(-"variable") %>%
+  mutate(series = factor(series),
+         gear = factor(gear),
+         fg = factor(fg))
 
 fg_scaled_biomass <- filter(FG_long,
                             variable == "sca.bmass") %>%
-  select(-"variable")
+  select(-"variable") %>%
+  mutate(series = factor(series),
+         gear = factor(gear),
+         fg = factor(fg))
 
 fg_biomass_abundance_ratio <- filter(FG_long,
                                      variable == "ba") %>%
-  select(-"variable")
+  select(-"variable") %>%
+  mutate(series = factor(series),
+         gear = factor(gear),
+         fg = factor(fg))
 
 #attr(fg_biomass, "axis_name") <-
 #  "RV index"
