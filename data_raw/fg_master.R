@@ -20,7 +20,8 @@ FG_long <- dat |>
     names_to      = c("variable", ".value"),
     names_pattern = "^(.*)\\.(value|ci2\\.5|ci97\\.5)$"
   ) |>
-  rename(series = name)
+  rename(series = name,
+         year = yr)
 
 # class(hake_recruitment_new) <- c("pacea_recruitment",
 #                                  class(hake_recruitment_new))
