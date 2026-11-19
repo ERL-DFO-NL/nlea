@@ -45,6 +45,13 @@ NLCI_sub <- NLCI_data_all|>
 
 nlci <- NLCI
 nlci_sub <- NLCI_sub
+
+class(nlci) <- c("nlea_nlci",
+                 class(nlci))
+
+class(nlci_sub) <- c("nlea_nlci_sub",
+                     class(nlci_sub))
+
 usethis::use_data(nlci,
                   overwrite = TRUE)
 usethis::use_data(nlci_sub,
