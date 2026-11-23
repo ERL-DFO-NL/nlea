@@ -1,5 +1,5 @@
 # FG biomass, abundance, ba with 95CI Run code line-by-line and check plots.
-#  See ?fg_master for details.
+#  See ?FG_bmass.abund.ba for details.
 library(dplyr)
 
 FG_master <- readr::read_csv(paste0(here::here(),
@@ -31,31 +31,19 @@ FG_long <- dat |>
 
 fg_biomass <- filter(FG_long,
                      variable == "bmass") %>%
-  select(-"variable") %>%
-  mutate(series = factor(series),
-         gear = factor(gear),
-         fg = factor(fg))
+  select(-"variable")
 
 fg_abundance <- filter(FG_long,
                        variable == "abund") %>%
-  select(-"variable") %>%
-  mutate(series = factor(series),
-         gear = factor(gear),
-         fg = factor(fg))
+  select(-"variable")
 
 fg_scaled_biomass <- filter(FG_long,
                             variable == "sca.bmass") %>%
-  select(-"variable") %>%
-  mutate(series = factor(series),
-         gear = factor(gear),
-         fg = factor(fg))
+  select(-"variable")
 
 fg_biomass_abundance_ratio <- filter(FG_long,
                                      variable == "ba") %>%
-  select(-"variable") %>%
-  mutate(series = factor(series),
-         gear = factor(gear),
-         fg = factor(fg))
+  select(-"variable")
 
 #attr(fg_biomass, "axis_name") <-
 #  "RV index"
