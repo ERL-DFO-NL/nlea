@@ -1,13 +1,5 @@
 # nlea: Curated Ecosystem Data for the Newfoundland and Labrador Region
 
-<!-- badges: start -->
-[![R-CMD-check](https://github.com/ERL-DFO-NL/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ERL-DFO-NL/nlea/actions/workflows/R-CMD-check.yaml)
-<!-- 
-Commenting out as not yet set up
-[![codecov](https://codecov.io/gh/ERL-DFO-NL/graph/badge.svg?token=93afkFJUVL)](https://codecov.io/gh/ERL-DFO-NL/nlea)
-![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FERL-DFO-NL%2Fnlea&label=VISITORS&countColor=%23263759&style=flat&labelStyle=lower) -->
-<!-- badges: end -->
-
 #### This is an experimental R package currently in development!
 ---
 `nlea` proves curated data sets to support an Ecosystem Approach to Fisheries Management (EAFM) in Canada's Newfoundland and Labrador Region. It contains data sets used for ecosystem summaries and related of oceanographic, environmental, and biological data crucial for research stock assessment.
