@@ -1,4 +1,5 @@
 # Contributing to marea
+> This is based on the marea contributing and will come into effect once we have a skeleton of a package.
 
 ## Development Workflow
 
@@ -20,7 +21,7 @@
 
 1. Push to your development branch
 2. Ensure GitHub Actions pass
-3. Merge into main when ready (Please request review from @jamiectam)
+3. Merge into main when ready (Please request review from @munrohannah)
 
 ### Coding Standards
 
