@@ -7,7 +7,7 @@ Authors@R: c(
     person("Chelsea", "Malayny", , "chelsea.malayny@dfo-mpo.gc.ca", role = c("aut")),
     person("Kathleen", "Ryan", , "kathleen.ryan@dfo-mpo.gc.ca", role = c("aut")),
     person("Mariano", "Koen-Alonso", , "mariano.koen-alonso@dfo-mpo.gc.ca", role = c("aut")),
-    person("Andrew M.", "Edwards", , "andrew.edwards@dfo-mpo.gc.ca", role = c("aut", "cre"),
+    person("Andrew M.", "Edwards", , "andrew.edwards@dfo-mpo.gc.ca", role = c("aut"),
         comment = c(ORCID = "0000-0003-2749-8198"))
     )
 Description: Provides access to Newfoundland and Labrador ecosystem data from 
@@ -22,10 +22,11 @@ Roxygen: list(markdown = TRUE)
 Depends: 
     R (>= 3.5)
 LazyData: true
-Imports: 
+Imports:
+    dplyr,
     ggplot2,
     rlang
-Config/roxygen2/version: 8.1.1
+Config/roxygen2/version: 8.1.0
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
