@@ -11,7 +11,6 @@
 The goal is to: - place all of the data used for ecosystem summaries and related indices - create plotting functions for quick visualizations of data - create plotting functions for use in ecosystem summaries
 
 ## Installation
----
 
 You can install the development version of `nlea` from GitHub:
 
@@ -21,7 +20,6 @@ remotes::install_github("ERL-DFO-NL/nlea")
 ```
 
 ## Quick Start
----
 
 This is currently under development but here is what we have so far.
 
@@ -40,12 +38,11 @@ plot(nlci)
 ```
 
 ## Available Data (development)
----
 
 > List of where we are going
 
 | Dataset | Description | Source |
-|--------------------|-----------------|------------------------------------|
+|--------------------|------------------|-----------------------------------|
 | nlci | Aggregated NL Climate Index (NLCI) | [Cyr and Galbrath et al 2021](https://doi.org/10.20383/103.01670) |
 | nlci_sub | Natural sign NLCI subindices | [Cyr and Galbrath et al 2021](https://doi.org/10.20383/103.01670) |
 | fg_abundance | Abundance from RV survey of functional groups | EcoSum Resdoc |
@@ -61,7 +58,7 @@ plot(nlci)
 | TBA | landings by functional guilds | NAFO SAR |
 | TBA | Fishing Effort | Open data/Res doc |
 
-> This is the issue of spatial data and how we will deal with that 
+> This is the issue of spatial data and how we will deal with that
 
-[]Fishing effort layers 
-[]Bottom temperature (CABOTS)
+- Fishing effort layers
+- Bottom temperature (CABOTS)
