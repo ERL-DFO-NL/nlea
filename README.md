@@ -10,7 +10,8 @@
 
 The goal is to: - place all of the data used for ecosystem summaries and related indices - create plotting functions for quick visualizations of data - create plotting functions for use in ecosystem summaries
 
-## \### Installation
+## Installation
+---
 
 You can install the development version of `nlea` from GitHub:
 
@@ -19,7 +20,8 @@ You can install the development version of `nlea` from GitHub:
 remotes::install_github("ERL-DFO-NL/nlea")
 ```
 
-## \### Quick Start
+## Quick Start
+---
 
 This is currently under development but here is what we have so far.
 
@@ -38,6 +40,7 @@ plot(nlci)
 ```
 
 ## Available Data (development)
+---
 
 > List of where we are going
 
@@ -60,5 +63,5 @@ plot(nlci)
 
 > This is the issue of spatial data and how we will deal with that 
 
-[] Fishing effort layers 
-[] Bottom temperature (CABOTS)
+[]Fishing effort layers 
+[]Bottom temperature (CABOTS)
