@@ -1,30 +1,29 @@
 # nlea: Curated Ecosystem Data for the Newfoundland and Labrador Region
 
 #### This is an experimental R package currently in development!
+
 ---
 `nlea` proves curated data sets to support an Ecosystem Approach to Fisheries Management (EAFM) in Canada's Newfoundland and Labrador Region. It contains data sets used for ecosystem summaries and related of oceanographic, environmental, and biological data crucial for research stock assessment.
 
 ### Goal 
 ---
-The goal is to:
-- place all of the data used for ecosystem summaries and related indices
-- create plotting functions for quick visualizations of data
-- create plotting functions for use in ecosystem summaries
 
-### Installation
----
+The goal is to: - place all of the data used for ecosystem summaries and related indices - create plotting functions for quick visualizations of data - create plotting functions for use in ecosystem summaries
+
+## \### Installation
+
 You can install the development version of `nlea` from GitHub:
 
-```r
+``` r
 # install.packages("remotes")
 remotes::install_github("ERL-DFO-NL/nlea")
 ```
 
-### Quick Start
----
+## \### Quick Start
+
 This is currently under development but here is what we have so far.
 
-```r
+``` r
 library(nlea)
 library(ggplot2) #for customization
 
@@ -38,25 +37,28 @@ head(nlci)
 plot(nlci)
 ```
 
-Available Data (development)
----
+## Available Data (development)
+
 > List of where we are going
 
-|Dataset   | Description | Source     |
-|---------|-----|----------------|
-| nlci   | Aggregated NL Climate Index (NLCI)  | [Cyr and Galbrath et al 2021](https://doi.org/10.20383/103.01670)  |
-| nlci_sub     | Natural sign NLCI subindices  |  [Cyr and Galbrath et al 2021](https://doi.org/10.20383/103.01670) |
-| fg_abundance | Abundance from RV survey of functional groups  | EcoSum Resdoc       |
-| fg_biomass | Biomass from RV survey of functional groups  | EcoSum Resdoc       |
-| fg_biomass_abundance_ratio | Biomass-Abundance ratio from RV survey of functional groups  | EcoSum Resdoc        |
-| fg_scaled_biomass | Scaled biomass from RV survey of functional groups  | EcoSum Resdoc        |
-| TBA | Zooplankton indices  | AZMP regional tech report       |
-| TBA | Species biomass  | EcoSum Resdoc        |
-| TBA | Biomass density by EPU  | EcoSum Resdoc        |
-| TBA | Diets of key predators  | EcoSum Resdoc        |
-| TBA | Stomach weights  | EcoSum Resdoc        |
-| TBA | TCI vs catch ratio  | NAFO SAR        |
-| TBA | landings by functional guilds  | NAFO SAR        |
-| TBA | Fishing Effort  | Open data/Res doc        |
+| Dataset | Description | Source |
+|--------------------|-----------------|------------------------------------|
+| nlci | Aggregated NL Climate Index (NLCI) | [Cyr and Galbrath et al 2021](https://doi.org/10.20383/103.01670) |
+| nlci_sub | Natural sign NLCI subindices | [Cyr and Galbrath et al 2021](https://doi.org/10.20383/103.01670) |
+| fg_abundance | Abundance from RV survey of functional groups | EcoSum Resdoc |
+| fg_biomass | Biomass from RV survey of functional groups | EcoSum Resdoc |
+| fg_biomass_abundance_ratio | Biomass-Abundance ratio from RV survey of functional groups | EcoSum Resdoc |
+| fg_scaled_biomass | Scaled biomass from RV survey of functional groups | EcoSum Resdoc |
+| TBA | Zooplankton indices | AZMP regional tech report |
+| TBA | Species biomass | EcoSum Resdoc |
+| TBA | Biomass density by EPU | EcoSum Resdoc |
+| TBA | Diets of key predators | EcoSum Resdoc |
+| TBA | Stomach weights | EcoSum Resdoc |
+| TBA | TCI vs catch ratio | NAFO SAR |
+| TBA | landings by functional guilds | NAFO SAR |
+| TBA | Fishing Effort | Open data/Res doc |
 
+> This is the issue of spatial data and how we will deal with that 
 
+[] Fishing effort layers 
+[] Bottom temperature (CABOTS)
