@@ -1,3 +1,3 @@
 # nlea (development version)
 
-* Initial CRAN submission.
+* Working to get initial datasets into package.
