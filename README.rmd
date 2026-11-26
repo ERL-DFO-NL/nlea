@@ -17,11 +17,14 @@ knitr::opts_chunk$set(
 
 #### This is an experimental R package currently in development!
 
-`nlea` proves curated data sets to support an Ecosystem Approach to Fisheries Management (EAFM) in Canada's Newfoundland and Labrador Region. It contains data sets used for ecosystem summaries and related of oceanographic, environmental, and biological data crucial for research stock assessment.
+`nlea` provides curated data sets to support an Ecosystem Approach to Fisheries Management (EAFM) in Canada's Newfoundland and Labrador Region. It contains data sets used for ecosystem summaries and related of oceanographic, environmental, and biological data crucial for research stock assessment.
 
 ### Goal 
 
-The goal is to: - place all of the data used for ecosystem summaries and related indices - create plotting functions for quick visualizations of data - create plotting functions for use in ecosystem summaries
+The goal is to: 
+- place all of the data used for ecosystem summaries and related indices 
+- create plotting functions for quick visualizations of data 
+- create plotting functions for use in ecosystem summaries
 
 ## Installation
 
