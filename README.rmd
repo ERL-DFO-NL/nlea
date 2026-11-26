@@ -27,7 +27,7 @@ The goal is to: - place all of the data used for ecosystem summaries and related
 
 You can install the development version of `nlea` from GitHub:
 
-``` {r}
+``` {r, eval=FALSE}
 # install.packages("remotes")
 remotes::install_github("ERL-DFO-NL/nlea")
 ```
@@ -36,7 +36,7 @@ remotes::install_github("ERL-DFO-NL/nlea")
 
 This is currently under development but here is what we have so far.
 
-``` {r , eval=TRUE}
+``` {r, eval=TRUE}
 library(nlea)
 library(ggplot2) #for customization
 

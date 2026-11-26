@@ -24,37 +24,6 @@ You can install the development version of `nlea` from GitHub:
 ``` r
 # install.packages("remotes")
 remotes::install_github("ERL-DFO-NL/nlea")
-#> Downloading GitHub repo ERL-DFO-NL/nlea@HEAD
-#> 
-#> ── R CMD build ─────────────────────────────────────────────────────────────────
-#>          checking for file 'C:\Users\munroh\AppData\Local\Temp\1\RtmpuUl98b\remotes861c6faf5484\ERL-DFO-NL-nlea-b47b086/DESCRIPTION' ...     checking for file 'C:\Users\munroh\AppData\Local\Temp\1\RtmpuUl98b\remotes861c6faf5484\ERL-DFO-NL-nlea-b47b086/DESCRIPTION' ...   ✔  checking for file 'C:\Users\munroh\AppData\Local\Temp\1\RtmpuUl98b\remotes861c6faf5484\ERL-DFO-NL-nlea-b47b086/DESCRIPTION' (2.3s)
-#>       ─  preparing 'nlea': (1.6s)
-#>    checking DESCRIPTION meta-information ...     checking DESCRIPTION meta-information ...   ✔  checking DESCRIPTION meta-information
-#>   Warning:     Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:31: unexpected section header '\source'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:34: unexpected section header '\usage'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:43: unexpected section header '\description'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:46: unexpected section header '\details'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:49: unexpected section header '\references'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:52: unexpected section header '\author'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:55: unexpected section header '\keyword'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:56: unexpected END_OF_INPUT '
-#>    '
-#>       ─  checking for LF line-endings in source and make files and shell scripts (1.6s)
-#>       ─  checking for empty or unneeded directories
-#>   Warning:     Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:31: unexpected section header '\source'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:34: unexpected section header '\usage'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:43: unexpected section header '\description'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:46: unexpected section header '\details'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:49: unexpected section header '\references'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:52: unexpected section header '\author'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:55: unexpected section header '\keyword'
-#>    Warning: C:/Users/munroh/AppData/Local/Temp/1/Rtmp4e6ft2/Rbuild9ea016eb1349/nlea/man/fg_biomass.Rd:56: unexpected END_OF_INPUT '
-#>    '
-#>       ─  building 'nlea_0.0.0.9000.tar.gz' (549ms)
-#>      
-#> 
-#> Installing package into 'C:/Users/munroh/AppData/Local/R/win-library/4.6'
-#> (as 'lib' is unspecified)
 ```
 
 ## Quick Start
