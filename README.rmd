@@ -5,7 +5,7 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
-knitr::opts_chunk\$set(
+knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
@@ -17,11 +17,9 @@ knitr::opts_chunk\$set(
 
 #### This is an experimental R package currently in development!
 
----
 `nlea` proves curated data sets to support an Ecosystem Approach to Fisheries Management (EAFM) in Canada's Newfoundland and Labrador Region. It contains data sets used for ecosystem summaries and related of oceanographic, environmental, and biological data crucial for research stock assessment.
 
 ### Goal 
----
 
 The goal is to: - place all of the data used for ecosystem summaries and related indices - create plotting functions for quick visualizations of data - create plotting functions for use in ecosystem summaries
 
@@ -29,7 +27,7 @@ The goal is to: - place all of the data used for ecosystem summaries and related
 
 You can install the development version of `nlea` from GitHub:
 
-``` r
+``` {r}
 # install.packages("remotes")
 remotes::install_github("ERL-DFO-NL/nlea")
 ```
@@ -38,7 +36,7 @@ remotes::install_github("ERL-DFO-NL/nlea")
 
 This is currently under development but here is what we have so far.
 
-``` {r , , eval=TRUE}
+``` {r , eval=TRUE}
 library(nlea)
 library(ggplot2) #for customization
 
