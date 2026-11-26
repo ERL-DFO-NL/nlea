@@ -6,7 +6,7 @@
 #' @param data A long-format data frame with columns `yr`, `fg`, `variable`,
 #'   `value`, `ci2.5`, `ci97.5`, plus the column named in `series_col`.
 #' @param series Series to plot. Default `"2J3K_Fall"`.
-#' @param variable Variable to plot. Default `"sca.bmass"`.
+#' @param variable Variable to plot. Default `"bmass"`.
 #' @param series_col Name of the column in `data` that holds the series.
 #'   Default `"name"`.
 #' @param scales Facet scales, passed to [ggplot2::facet_wrap()].
@@ -24,7 +24,7 @@
 #' }
 plot_series <- function(data,
                         series     = "2J3K_Fall",
-                        variable   = "sca.bmass",
+                        variable   = "bmass",
                         series_col = "name",
                         scales     = "free_y",
                         ncol       = NULL) {
