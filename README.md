@@ -23,7 +23,7 @@ remotes::install_github("ERL-DFO-NL/nlea")
 
 This is currently under development but here is what we have so far.
 
-``` r
+``` {r , , eval=TRUE}
 library(nlea)
 library(ggplot2) #for customization
 
