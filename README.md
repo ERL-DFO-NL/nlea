@@ -3,6 +3,8 @@
 
 # nlea: Curated Ecosystem Data for the Newfoundland and Labrador Region
 
+<img src="man/figures/nlea_batch1.jpg" align="right" height="120"/>
+
 #### This is an experimental R package currently in development!
 
 `nlea` proves curated data sets to support an Ecosystem Approach to
